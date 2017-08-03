@@ -1,0 +1,25 @@
+{
+  "name": "graph-draw",
+  "description": "polygonal tessellation of planar graphs",
+  "author": "Manuel Baclet <mbaclet@gmail.com>",
+  "version": "0.0.0",
+  "main": "graph-draw.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manubb/graph-draw.git"
+  },
+  "keywords": [
+    "planar graph",
+    "tessellation",
+    "graph",
+    "polyline"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/manubb/graph-draw#readme",
+  "peerDependencies": {},
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/manubb/graph-draw/issues"
+  }
+}
