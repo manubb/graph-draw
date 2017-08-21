@@ -1,10 +1,14 @@
 {
   "name": "graph-draw",
-  "description": "polygonal tessellation of planar graphs",
+  "description": "triangles tessellation of planar graphs",
   "author": "Manuel Baclet <mbaclet@gmail.com>",
-  "version": "0.0.0",
-  "main": "graph-draw.js",
-  "scripts": {},
+  "version": "0.0.1",
+  "main": "src/graph-draw.js",
+  "scripts": {
+    "build:js": "./node_modules/browserify/bin/cmd.js ./src/graph-draw.js --standalone graphDraw > ./dist/graph-draw-bundle.js && ./node_modules/browserify/bin/cmd.js --external libtess ./src/graph-draw.js --standalone graphDraw > ./dist/graph-draw.js",
+    "build:uglify": "./node_modules/uglify-js/bin/uglifyjs ./dist/graph-draw-bundle.js -m -c -o ./dist/graph-draw-bundle.min.js && ./node_modules/uglify-js/bin/uglifyjs ./dist/graph-draw.js -m -c -o ./dist/graph-draw.min.js",
+    "build": "npm run build:js && npm run build:uglify"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/manubb/graph-draw.git"
@@ -17,9 +21,14 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/manubb/graph-draw#readme",
-  "peerDependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "uglify-js": "^3.0.28"
+  },
   "bugs": {
     "url": "https://github.com/manubb/graph-draw/issues"
+  },
+  "dependencies": {
+    "libtess": "^1.2.2"
   }
 }
