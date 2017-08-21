@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html style="height: 100%; margin: 0;">
+<head>
+	<title>French cities mesh graph-draw demo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/leaflet.css"/>
+	<script src="js/leaflet.js"></script>
+	<script src="js/leaflet-hash.js"></script>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/L.PixiOverlay.min.js"></script>
+	<script src="js/graph-draw-bundle.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0; overflow: hidden;">
+<div id="map" style="height: 100%; width: 100%;"></div>
+<img id="webgl" src="img/WebGL_Logo.png" style="position: absolute; top: 20px; left: 20px; height: 50px; z-index: 600; pointer-events: none; display: none;" >
+<script>
+	function getJSON(url, successHandler, errorHandler) {
+		var xhr = typeof XMLHttpRequest != 'undefined'
+			? new XMLHttpRequest()
+			: new ActiveXObject('Microsoft.XMLHTTP');
+		xhr.open('get', url, true);
+		xhr.onreadystatechange = function() {
+			var status;
+			var data;
+			if (xhr.readyState == 4) {
+				status = xhr.status;
+				if (status == 200) {
+					data = JSON.parse(xhr.responseText);
+					successHandler && successHandler(data);
+				} else {
+					errorHandler && errorHandler(status);
+				}
+			}
+		};
+		xhr.send();
+	}
+	document.addEventListener("DOMContentLoaded", function() {
+		getJSON('data/city-mesh.json', function(graph) {
+			var map = L.map('map').setView([47.0149, -1.4571], 10);
+			var hash = new L.Hash(map);
+			L.tileLayer('//stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
+				subdomains: 'abcd',
+				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+				minZoom: 2,
+				maxZoom: 16
+			}).addTo(map);
+			map.attributionControl.setPosition('bottomleft');
+			map.zoomControl.setPosition('bottomright');
+
+			var pixiLayer = (function() {
+				var firstDraw = true;
+				var prevZoom;
+				var pixiContainer = new PIXI.Graphics();
+				pixiContainer.alpha = 0.8;
+
+				var forceCanvas = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var mesh = new PIXI.Graphics();
+
+				return L.pixiOverlay(function(utils) {
+					var zoom = utils.getMap().getZoom();
+					var container = utils.getContainer();
+					var renderer = utils.getRenderer();
+					var gl = renderer.gl;
+					var project = utils.latLngToLayerPoint;
+					var scale = utils.getScale();
+					var invScale = 1 / scale;
+					if (firstDraw) {
+						if (renderer.type === PIXI.RENDERER_TYPE.WEBGL) {
+							document.querySelector('#webgl').style.display = 'block';
+						} else {
+							document.body.removeChild(document.querySelector('#webgl'));
+						}
+
+						var vertices = graph.vertices;
+						var origin = project([vertices[0][1], vertices[0][0]]);
+						mesh.x = origin.x;
+						mesh.y = origin.y;
+						graph.vertices = vertices.map(function(position) {
+							var projected = project([position[1], position[0]]);
+							return [projected.x - origin.x, projected.y - origin.y];
+						});
+						var w = 8 / utils.getScale(12);
+						var triangles = graphDraw(graph, w);
+						prevZoom = zoom;
+						container.addChild(mesh);
+						mesh.beginFill(0xff2200, 0.6);
+						triangles.forEach(function(poly) {
+							poly.forEach(function(point, index) {
+								if (index === 0) mesh.moveTo(point[0], point[1]);
+								else mesh.lineTo(point[0], point[1]);
+							});
+							mesh.closePath();
+						});
+					}
+					firstDraw = false;
+					prevZoom = zoom;
+					renderer.render(container);
+				}, pixiContainer, {
+					forceCanvas: forceCanvas
+				});
+			})();
+			pixiLayer.addTo(map);
+		});
+	});
+</script>
+</body>
+</html>
