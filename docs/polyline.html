@@ -36,7 +36,7 @@
 		xhr.send();
 	}
 	document.addEventListener("DOMContentLoaded", function() {
-		getJSON('data/polyline.json', function(sumberaLine) {
+		getJSON('data/polyline.json', function(graph) {
 			var map = L.map('map').setView([38.90864, -77.04407], 18);
 			var hash = new L.Hash(map);
 			L.tileLayer('//stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
@@ -72,16 +72,16 @@
 							document.body.removeChild(document.querySelector('#webgl'));
 						}
 
-						var vertices = sumberaLine.vertices;
+						var vertices = graph.vertices;
 						var origin = project([vertices[0][1], vertices[0][0]]);
 						mesh.x = origin.x;
 						mesh.y = origin.y;
-						sumberaLine.vertices = vertices.map(function(position) {
+						graph.vertices = vertices.map(function(position) {
 							var projected = project([position[1], position[0]]);
 							return [projected.x - origin.x, projected.y - origin.y];
 						});
 						var w = 1 / utils.getScale(12);
-						var triangles = graphDraw(sumberaLine, w);
+						var triangles = graphDraw(graph, w);
 						prevZoom = zoom;
 						container.addChild(mesh);
 						mesh.beginFill(0xff2200, 0.6);
