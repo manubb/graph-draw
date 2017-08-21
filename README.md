@@ -12,7 +12,7 @@ A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
 
 A [polyline](https://manubb.github.io/graph-draw/polyline.html) on a map (173 edges tessellated in 333 triangles).
 
-French [cities boundaries](https://manubb.github.io/graph-draw/city-mesh.html) (151273 edges tessellated in 577447 triangles).
+French [cities boundaries](https://manubb.github.io/graph-draw/city-mesh.html) (186721 edges tessellated in 577447 triangles).
 
 ## Installation
 graph-draw is available as a npm package:
