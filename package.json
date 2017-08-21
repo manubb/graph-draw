@@ -5,6 +5,7 @@
   "version": "0.0.1",
   "main": "src/graph-draw.js",
   "scripts": {
+    "build:docs": "cp ./node_modules/pixi.js/dist/pixi.min.js ./docs/js/pixi.min.js && cp ./dist/graph-draw-bundle.min.js ./docs/js/graph-draw-bundle.min.js",
     "build:js": "./node_modules/browserify/bin/cmd.js ./src/graph-draw.js --standalone graphDraw > ./dist/graph-draw-bundle.js && ./node_modules/browserify/bin/cmd.js --external libtess ./src/graph-draw.js --standalone graphDraw > ./dist/graph-draw.js",
     "build:uglify": "./node_modules/uglify-js/bin/uglifyjs ./dist/graph-draw-bundle.js -m -c -o ./dist/graph-draw-bundle.min.js && ./node_modules/uglify-js/bin/uglifyjs ./dist/graph-draw.js -m -c -o ./dist/graph-draw.min.js",
     "build": "npm run build:js && npm run build:uglify"
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/manubb/graph-draw#readme",
   "devDependencies": {
     "browserify": "^14.4.0",
+    "pixi.js": "^4.5.4",
     "uglify-js": "^3.0.28"
   },
   "bugs": {
