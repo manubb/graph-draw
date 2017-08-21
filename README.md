@@ -1,4 +1,6 @@
-# graph-draw
+graph-draw
+==========
+
 A JavaScript library for tessellating undirected planar graphs for Node and browsers.
 It can be used to draw boundaries or polylines on a map.
 
@@ -8,7 +10,7 @@ It can be used to draw boundaries or polylines on a map.
 
 A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
 
-# Installation
+## Installation
 graph-draw is available as a npm package:
 ```
 npm install graph-draw
@@ -20,7 +22,7 @@ var graphDraw = require('graph-draw');
 
 In browsers, include one file from the dist directory. (Files with name that contains "bundle" include libtess.)
 
-# Usage
+## Usage
 ```js
 var vertices = [[0, 0], [100, 0], [100, 100], [0, 100]];
 // coordinates of the vertices
