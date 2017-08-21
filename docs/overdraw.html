@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html style="height: 100%; margin: 0;">
+<head>
+	<title>Expected overdraw situation</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<script src="js/pixi.min.js"></script>
+	<script src="js/graph-draw-bundle.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0;">
+<div id="pixi"></div>
+<script>
+	var vertices = [
+		[0, -200],
+		[100, -200],
+		[100 , -100],
+		[0, -100],
+		[15, -150]
+	];
+
+	var edges = [
+		[0, 1],
+		[1, 4],
+		[4, 2],
+		[2, 3],
+		[3, 0]
+	];
+	var triangles = graphDraw({vertices: vertices, edges: edges}, 20);
+
+	function getRandomInt(min, max) {
+	  min = Math.ceil(min);
+	  max = Math.floor(max);
+	  return Math.floor(Math.random() * (max - min)) + min;
+	}
+
+	var renderer = PIXI.autoDetectRenderer({
+		transparent: true,
+		antialias: true,
+		width: 1000,
+		height: 1000
+	});
+
+	document.querySelector('#pixi').appendChild(renderer.view);
+	var drawing = new PIXI.Graphics();
+	drawing.beginFill(0x777777, 0.6);
+	triangles.forEach(function(triangle) {
+		triangle.forEach(function(point, index) {
+			if (index === 0) drawing.moveTo(point[0], point[1]);
+			else drawing.lineTo(point[0], point[1]);
+		});
+		drawing.closePath();
+	});
+	drawing.beginFill(0x0);
+	vertices.forEach(function(point) {
+		drawing.drawCircle(point[0], point[1], 2);
+	});
+	drawing.position.set(50, 700);
+	drawing.scale.set(3);
+	renderer.render(drawing);
+</script>
+</body>
+</html>

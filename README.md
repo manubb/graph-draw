@@ -6,7 +6,7 @@ A JavaScript library for tessellating undirected planar graphs for Node and brow
 [![screenshot](/docs/img/intro.png)](https://manubb.github.io/graph-draw/basic-demo.html)
 
 The algorithm is designed to avoid local overdraw. A typical non local overdraw (expected) situation:
- ![overdraw](/docs/img/overdraw.png)
+[![overdraw](/docs/img/overdraw.png)](https://manubb.github.io/graph-draw/overdraw.html)
 
 The library can be used for example to draw boundaries or polylines on a map (see the demos).
 ## Demo
