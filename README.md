@@ -2,10 +2,13 @@ graph-draw
 ==========
 
 A JavaScript library for tessellating undirected planar graphs for Node and browsers.
-It can be used to draw boundaries or polylines on a map.
 
 [![screenshot](/docs/img/intro.png)](https://manubb.github.io/graph-draw/basic-demo.html)
 
+The algorithm is designed to avoid local overdraw. A typical non local overdraw (expected) situation:
+ ![overdraw](/docs/img/overdraw.png)
+
+The library can be used for example to draw boundaries or polylines on a map (see the demos).
 ## Demo
 
 A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
