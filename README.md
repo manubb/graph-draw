@@ -8,7 +8,7 @@ graph-draw is available as a npm package:
 npm install graph-draw
 ```
 In Node:
-```
+```js
 var graphDraw = require('graph-draw');
 ```
 
