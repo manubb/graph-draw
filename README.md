@@ -10,6 +10,8 @@ It can be used to draw boundaries or polylines on a map.
 
 A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
 
+A [polyline](https://manubb.github.io/graph-draw/polyline.html) on a map.
+
 ## Installation
 graph-draw is available as a npm package:
 ```
