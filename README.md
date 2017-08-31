@@ -37,7 +37,7 @@ var vertices = [[0, 0], [100, 0], [100, 100], [0, 100]];
 var edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
 // each edge is specified with the indices of the linked vertices
 // each edge must appear exactly once in the list
-// ([0, 1] and [1, 0] are the same edges)
+// ([0, 1] and [1, 0] are the same edge)
 
 var graph = {vertices: vertices, edges: edges};
 var strokeWidth = 10;
