@@ -268,7 +268,7 @@ function graphDraw(graph, width) {
 		var from;
 		var r1 = obj.rectangles[0];
 		var r2 = obj.rectangles[1];
-		while(from = todo.pop()) {
+		while((from = todo.pop()) !== null) {
 			vertices[from].neighList.forEach(function(obj) {
 				var index = obj.index;
 				if (done[index]) return;
