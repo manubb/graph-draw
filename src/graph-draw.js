@@ -8,6 +8,7 @@
 var tess = new (require('./tessellator'))();
 
 /* Stack class with no duplicates */
+
 function TaskList() {
 	this.list = [];
 	this.hash = Object.create(null);
@@ -120,11 +121,14 @@ function getData(from, to, w) {
 	};
 }
 
-// main function
+/* main function */
+
 function graphDraw(graph, width, maxAngle) {
 	var w = width / 2;
 	maxAngle = Math.max(Math.PI, maxAngle || 2 * Math.PI);
+
 	/* Data structures setup */
+
 	var vertices = graph.vertices.map(function(coords) {
 		return {
 			coords: coords,
@@ -163,6 +167,7 @@ function graphDraw(graph, width, maxAngle) {
 	});
 
 	/* Build edges contour points */
+
 	var toPostProcess = [];
 	vertices.forEach(function(vertex, vindex) {
 		var point = vertex.coords;
@@ -231,6 +236,7 @@ function graphDraw(graph, width, maxAngle) {
 	});
 
 	/* Build each edge polygon */
+
 	edges.forEach(function(obj) {
 		var edge = obj.edge;
 		var from = edge[0];
