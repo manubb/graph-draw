@@ -13,9 +13,9 @@ The library can be used for example to draw boundaries or polylines on a map (se
 
 A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
 
-A [polyline](https://manubb.github.io/graph-draw/polyline.html) on a map (173 edges tessellated in 333 triangles).
+A [polyline](https://manubb.github.io/graph-draw/polyline.html) on a map (173 edges tessellated in 335 triangles).
 
-French [cities boundaries](https://manubb.github.io/graph-draw/city-mesh.html) (186721 edges tessellated in 577447 triangles).
+French [cities boundaries](https://manubb.github.io/graph-draw/city-mesh.html) (186722 edges tessellated in 585352 triangles).
 
 ## Installation
 graph-draw is available as a npm package:
