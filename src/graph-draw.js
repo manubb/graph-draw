@@ -121,8 +121,9 @@ function getData(from, to, w) {
 }
 
 // main function
-function graphDraw(graph, width) {
+function graphDraw(graph, width, maxAngle) {
 	var w = width / 2;
+	maxAngle = Math.max(Math.PI, maxAngle || 2 * Math.PI);
 	/* Data structures setup */
 	var vertices = graph.vertices.map(function(coords) {
 		return {
@@ -194,8 +195,20 @@ function graphDraw(graph, width) {
 				var intersection = rayIntersection(p1, p2, p3, p4);
 				var newPoint = intersection.point;
 				if (intersection.valid) {
-					edgePoints[vindex].first = newPoint;
-					nextPoints[vindex].last = newPoint;
+					var nextAngle = last ? next.angle + 2 * Math.PI : next.angle;
+					if (nextAngle - edge.angle > maxAngle) {
+						edgePoints[vindex].first = p1;
+						nextPoints[vindex].last = p3;
+						var vec = [newPoint[0] - point[0], newPoint[1] - point[1]];
+						var invNorm = 1 / Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+						edgePoints[vindex].miter_first = nextPoints[vindex].miter_last = [
+							point[0] + w * vec[0] * invNorm,
+							point[1] + w * vec[1] * invNorm
+						];
+					} else {
+						edgePoints[vindex].first = newPoint;
+						nextPoints[vindex].last = newPoint;
+					}
 					if (n === 2) {
 						edgePoints[vindex].remove_middle_first = true;
 						nextPoints[vindex].remove_middle_last = true;
@@ -227,25 +240,30 @@ function graphDraw(graph, width) {
 		var fromCoords = vertices[from].coords;
 		var toCoords = vertices[to].coords;
 		var newPoly = obj.polygon = [];
+
 		if (innerProduct(obj1.last, obj2.first, fromCoords, toCoords) < 0) {
 			var i1 = obj1.last_vertex;
 			var i2 = obj2.first_vertex;
 			unionFindUnion(edges[i1], edges[i2]);
-			newPoly.push(segmentIntersection(fromCoords, obj1.last, obj2.first, toCoords));
+			newPoly.push(segmentIntersection(obj1.miter_last || fromCoords, obj1.last, obj2.first, obj2.miter_first || toCoords));
 		} else {
 			newPoly.push(obj1.last, obj2.first);
 		}
+		if (obj2.miter_first) newPoly.push(obj2.miter_first);
 		if (!(obj2.remove_middle_first && obj2.remove_middle_last)) newPoly.push(toCoords);
+		if (obj2.miter_last) newPoly.push(obj2.miter_last);
 		obj.diag = newPoly.length;
 		if (innerProduct(obj1.first, obj2.last, fromCoords, toCoords) < 0) {
 			var i1 = obj1.first_vertex;
 			var i2 = obj2.last_vertex;
 			unionFindUnion(edges[i1], edges[i2]);
-			newPoly.push(segmentIntersection(obj1.first, fromCoords, toCoords, obj2.last));
+			newPoly.push(segmentIntersection(obj1.first, obj1.miter_first || fromCoords, obj2.miter_last || toCoords, obj2.last));
 		} else {
 			newPoly.push(obj2.last, obj1.first);
 		}
+		if (obj1.miter_first) newPoly.push(obj1.miter_first);
 		if (!(obj1.remove_middle_first && obj1.remove_middle_last)) newPoly.push(fromCoords);
+		if (obj1.miter_last) newPoly.push(obj1.miter_last);
 	});
 
 	/* Find locally overlapping edges */
@@ -269,18 +287,18 @@ function graphDraw(graph, width) {
 		var r1 = obj.rectangles[0];
 		var r2 = obj.rectangles[1];
 		while((from = todo.pop()) !== null) {
-			vertices[from].neighList.forEach(function(obj) {
-				var index = obj.index;
+			vertices[from].neighList.forEach(function(neigh) {
+				var index = neigh.index;
 				if (done[index]) return;
-				var to = obj.to;
+				var to = neigh.to;
 				var rectangle = shapeMemo[index];
 				if (!rectangle) {
 					var fromCoords = vertices[from].coords;
 					var toCoords = vertices[to].coords;
-					var p1 = [fromCoords[0] + obj.ortho[0], fromCoords[1] + obj.ortho[1]];
-					var p2 = [toCoords[0] + obj.ortho[0], toCoords[1] + obj.ortho[1]];
-					var p3 = [toCoords[0] - obj.ortho[0], toCoords[1] - obj.ortho[1]];
-					var p4 = [fromCoords[0] - obj.ortho[0], fromCoords[1] - obj.ortho[1]];
+					var p1 = [fromCoords[0] + neigh.ortho[0], fromCoords[1] + neigh.ortho[1]];
+					var p2 = [toCoords[0] + neigh.ortho[0], toCoords[1] + neigh.ortho[1]];
+					var p3 = [toCoords[0] - neigh.ortho[0], toCoords[1] - neigh.ortho[1]];
+					var p4 = [fromCoords[0] - neigh.ortho[0], fromCoords[1] - neigh.ortho[1]];
 					rectangle = shapeMemo[index] = [p1, p2, p3, p4];
 				}
 				done[index] = true;
