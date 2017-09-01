@@ -65,6 +65,8 @@ var edges = [
   [0, 1],
   [1, 2]
 ];
+var graph = {vertices: vertices, edges: edges};
+var strokeWidth = 20;
 var triangles = graphDraw(graph, strokeWidth);
 ```
 produces:
