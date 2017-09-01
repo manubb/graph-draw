@@ -43,7 +43,7 @@
 				subdomains: 'abcd',
 				attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
 				minZoom: 2,
-				maxZoom: 16
+				maxZoom: 18
 			}).addTo(map);
 			map.attributionControl.setPosition('bottomleft');
 			map.zoomControl.setPosition('bottomright');
@@ -80,8 +80,7 @@
 							var projected = project([position[1], position[0]]);
 							return [projected.x - origin.x, projected.y - origin.y];
 						});
-						var w = 8 / utils.getScale(12);
-						var triangles = graphDraw(graph, w);
+						var triangles = graphDraw(graph, 8 / utils.getScale(12), 3 * Math.PI / 2);
 						prevZoom = zoom;
 						container.addChild(mesh);
 						mesh.beginFill(0xff2200, 0.6);

@@ -81,7 +81,7 @@
 							return [projected.x - origin.x, projected.y - origin.y];
 						});
 						var w = 1 / utils.getScale(12);
-						var triangles = graphDraw(graph, w);
+						var triangles = graphDraw(graph, w, 7 * Math.PI / 4);
 						prevZoom = zoom;
 						container.addChild(mesh);
 						mesh.beginFill(0xff2200, 0.6);
