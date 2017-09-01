@@ -56,21 +56,21 @@ When the angle between two consecutive edges is close to 2&pi;, long miter situa
 
 ```js
 var vertices = [
-	[0, -200],
-	[100 , -100],
-	[30, -200]
+  [0, -200],
+  [100 , -100],
+  [30, -200]
 ];
 
 var edges = [
-	[0, 1],
-	[1, 2]
+  [0, 1],
+  [1, 2]
 ];
 var triangles = graphDraw(graph, strokeWidth);
 ```
 produces:
 ![miter](/docs/img/miter.png)
 
-To avoid this, graphDraw function accepts a third (optional) maxAngle parameter which is an angle between &pi; and 2&pi;. If the angle between two consecutive edges is above maxAngle, the miter will be replaced by two triangles approximating a round join. For example:
+To avoid this, `graphDraw` function accepts a third (optional) maxAngle parameter which is an angle between &pi; and 2&pi;. If the angle between two consecutive edges is above maxAngle, the miter will be replaced by two triangles approximating a round join. For example:
 
 ```js
 var triangles = graphDraw(graph, strokeWidth, Math.PI);
