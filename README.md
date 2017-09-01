@@ -8,7 +8,7 @@ A JavaScript library for tessellating undirected planar graphs for Node and brow
 The algorithm is designed to avoid local overdraw. A typical non local overdraw (expected) situation:
 [![overdraw](/docs/img/overdraw.png)](https://manubb.github.io/graph-draw/overdraw.html)
 
-The library can be used for example to draw boundaries or polylines on a map (see the demos).
+The library can be used for example to draw boundaries or polylines on a [Leaflet](http://leafletjs.com) map using [leaflet-pixi-overlay](https://www.npmjs.com/package/leaflet-pixi-overlay) (see the demos).
 ## Demo
 
 A very basic [demo](https://manubb.github.io/graph-draw/basic-demo.html).
