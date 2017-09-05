@@ -41,16 +41,24 @@ var edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
 
 var graph = {vertices: vertices, edges: edges};
 var strokeWidth = 10;
-var triangles = graphDraw(graph, strokeWidth);
+var polygons = [];
+function polygonCallBack(convexPolygon) {
+	polygons.push(convexPolygon);
+}
+graphDraw(graph, strokeWidth, polygonCallBack);
 ```
-A list of triangles is returned:
+The `polygonCallBack` is executed on each polygon of the tessellation. Now, `polygons` contains a list of convex polygons (which can be easily converted into triangle strips or triangle fans):
+
 ```js
 [
-  [ [ -5, -5 ], [ 87.92893218813452, 5 ], [ 5, 5 ] ],
-  [ [ 87.92893218813452, 5 ], [ -5, -5 ], [ 105, -5 ] ],
+  [[x1, y1], [x2, y2], [x3, y3], [x4, y4]],
+  [[a1, b1], [a2, b2], [a3, b3]],
   ...
 ]
 ```
+
+Those convex polygons can have between 3 and 8 edges.
+
 ## Limiting miters
 When the angle between two consecutive edges is close to 2&pi;, long miter situations occur. For example:
 
@@ -67,15 +75,15 @@ var edges = [
 ];
 var graph = {vertices: vertices, edges: edges};
 var strokeWidth = 20;
-var triangles = graphDraw(graph, strokeWidth);
+graphDraw(graph, strokeWidth, polygonCallBack);
 ```
 produces:
 ![miter](/docs/img/miter.png)
 
-To avoid this, `graphDraw` function accepts a third (optional) `maxAngle` parameter which is an angle between &pi; and 2&pi;. If the angle between two consecutive edges is above `maxAngle`, the miter will be replaced by two triangles approximating a round join. For example:
+To avoid this, `graphDraw` function accepts a fourth (optional) `maxAngle` parameter which is an angle between &pi; and 2&pi;. If the angle between two consecutive edges is above `maxAngle`, the miter will be replaced by two triangles approximating a round join. For example:
 
 ```js
-var triangles = graphDraw(graph, strokeWidth, Math.PI);
+var triangles = graphDraw(graph, strokeWidth, polygonCallBack, Math.PI);
 ```
 will produce:
 ![round](/docs/img/round.png)

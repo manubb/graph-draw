@@ -123,7 +123,7 @@ function getData(from, to, w) {
 
 /* main function */
 
-function graphDraw(graph, width, maxAngle) {
+function graphDraw(graph, width, cb, maxAngle) {
 	var w = width / 2;
 	maxAngle = Math.max(Math.PI, maxAngle || 2 * Math.PI);
 
@@ -258,7 +258,6 @@ function graphDraw(graph, width, maxAngle) {
 		if (obj2.miter_first) newPoly.push(obj2.miter_first);
 		if (!(obj2.remove_middle_first && obj2.remove_middle_last)) newPoly.push(toCoords);
 		if (obj2.miter_last) newPoly.push(obj2.miter_last);
-		obj.diag = newPoly.length;
 		if (innerProduct(obj1.first, obj2.last, fromCoords, toCoords) < 0) {
 			var i1 = obj1.first_vertex;
 			var i2 = obj2.last_vertex;
@@ -316,10 +315,9 @@ function graphDraw(graph, width, maxAngle) {
 		}
 	});
 
-	/* Build triangles list */
+	/* Execute cb on each polygon */
 
 	var needUnion = [];
-	var triangles = [];
 	edges.forEach(function(obj, index) {
 		if (obj.rank > 0 && obj.parent === obj) {
 			obj.union = obj.union || [];
@@ -327,16 +325,7 @@ function graphDraw(graph, width, maxAngle) {
 			needUnion.push(index);
 		} else {
 			if (obj.parent === obj) {
-				var polygon = obj.polygon;
-				var diag = obj.diag;
-				var fanFrom = polygon[0];
-				for (var i = diag; i < polygon.length - 1; i++) {
-					triangles.push([fanFrom, polygon[i], polygon[i+1]]);
-				}
-				fanFrom = polygon[diag];
-				for (i = 0; i < diag - 1; i++) {
-					triangles.push([fanFrom, polygon[i], polygon[i+1]]);
-				}
+				cb(obj.polygon);
 			} else {
 				var root = unionFindFind(obj);
 				root.union = root.union || [];
@@ -344,13 +333,12 @@ function graphDraw(graph, width, maxAngle) {
 			}
 		}
 	});
+
+	tess._cb = cb;
 	needUnion.forEach(function(index) {
-		tess.run({
-			polygons: edges[index].union,
-			output: triangles
-		});
+		tess.run(edges[index].union);
 	});
-	return triangles;
+	delete tess._cb;
 }
 
 module.exports = graphDraw;

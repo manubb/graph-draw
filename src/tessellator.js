@@ -36,10 +36,10 @@ function Tesselator() {
 Tesselator.prototype = Object.create(GluTesselator.prototype);
 Tesselator.prototype.constructor = Tesselator;
 
-Tesselator.prototype.run = function(opts) {
+Tesselator.prototype.run = function(polygons) {
 	var self = this;
 	this.gluTessBeginPolygon();
-	opts.polygons.forEach(function(poly) {
+	polygons.forEach(function(poly) {
 		self.gluTessBeginContour();
 		poly.forEach(function(point) {
 			self.gluTessVertex([point[0], point[1], 0], point);
@@ -59,7 +59,6 @@ Tesselator.prototype.run = function(opts) {
 		self.gluTessEndContour();
 	});
 	this.gluTessProperty(GLU_TESS_BOUNDARY_ONLY, false);
-	this._output = opts.output;
 	this.gluTessEndPolygon();
 };
 
@@ -90,7 +89,7 @@ Tesselator.prototype._end = function() {
 		this._output.push(this._accu);
 	} else {
 		for (var i = 0; i < this._accu.length; i += 3) {
-			this._output.push([this._accu[i], this._accu[i+1], this._accu[i+2]]);
+			this._cb([this._accu[i], this._accu[i+1], this._accu[i+2]]);
 		}
 	}
 };
