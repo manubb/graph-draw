@@ -83,7 +83,7 @@ produces:
 To avoid this, `graphDraw` function accepts a fourth (optional) `maxAngle` parameter which is an angle between &pi; and 2&pi;. If the angle between two consecutive edges is above `maxAngle`, the miter will be replaced by two triangles approximating a round join. For example:
 
 ```js
-var triangles = graphDraw(graph, strokeWidth, polygonCallBack, Math.PI);
+graphDraw(graph, strokeWidth, polygonCallBack, Math.PI);
 ```
 will produce:
 ![round](/docs/img/round.png)
