@@ -15,7 +15,7 @@
 <div id="map" style="height: 100%; width: 100%;"></div>
 <img id="webgl" src="img/WebGL_Logo.png" style="position: absolute; top: 20px; left: 20px; height: 50px; z-index: 600; pointer-events: none; display: none;" >
 <script>
-		// patch WebGL PIXI.mesh.MeshRenderer
+	// patch WebGL PIXI.mesh.MeshRenderer
 	var _pixiGlCore2 = PIXI.glCore;
 	PIXI.mesh.MeshRenderer.prototype.onContextChange = function onContextChange() {
 		var gl = this.renderer.gl;
