@@ -45,7 +45,6 @@
 		[9, 11],
 		[11, 12]
 	];
-	var triangles = graphDraw({vertices: vertices, edges: edges}, 10, 2 * Math.PI);
 
 	function getRandomInt(min, max) {
 	  min = Math.ceil(min);
@@ -62,9 +61,10 @@
 
 	document.querySelector('#pixi').appendChild(renderer.view);
 	var drawing = new PIXI.Graphics();
-	triangles.forEach(function(triangle) {
+
+	graphDraw({vertices: vertices, edges: edges}, 10, function(polygon) {
 		drawing.beginFill(getRandomInt(0, 256 * 256 * 256), 0.6);
-		triangle.forEach(function(point, index) {
+		polygon.forEach(function(point, index) {
 			if (index === 0) drawing.moveTo(point[0], point[1]);
 			else drawing.lineTo(point[0], point[1]);
 		});

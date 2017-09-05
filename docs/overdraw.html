@@ -25,7 +25,6 @@
 		[2, 3],
 		[3, 0]
 	];
-	var triangles = graphDraw({vertices: vertices, edges: edges}, 20);
 
 	function getRandomInt(min, max) {
 	  min = Math.ceil(min);
@@ -43,13 +42,15 @@
 	document.querySelector('#pixi').appendChild(renderer.view);
 	var drawing = new PIXI.Graphics();
 	drawing.beginFill(0x777777, 0.6);
-	triangles.forEach(function(triangle) {
-		triangle.forEach(function(point, index) {
+
+	graphDraw({vertices: vertices, edges: edges}, 20, function(polygon) {
+		polygon.forEach(function(point, index) {
 			if (index === 0) drawing.moveTo(point[0], point[1]);
 			else drawing.lineTo(point[0], point[1]);
 		});
 		drawing.closePath();
 	});
+
 	drawing.beginFill(0x0);
 	vertices.forEach(function(point) {
 		drawing.drawCircle(point[0], point[1], 2);
