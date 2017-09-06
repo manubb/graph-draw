@@ -42,9 +42,11 @@ var edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
 var graph = {vertices: vertices, edges: edges};
 var strokeWidth = 10;
 var polygons = [];
+
 function polygonCallBack(convexPolygon) {
 	polygons.push(convexPolygon);
 }
+
 graphDraw(graph, strokeWidth, polygonCallBack);
 ```
 The `polygonCallBack` is executed on each polygon of the tessellation. Now, `polygons` contains a list of convex polygons (which can be easily converted into triangle strips or triangle fans):
