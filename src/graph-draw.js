@@ -1,5 +1,5 @@
 // Graph-draw
-// version: 1.1.2
+// version: 2.0.0
 // author: Manuel Baclet <mbaclet@gmail.com>
 // license: MIT
 
