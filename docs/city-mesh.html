@@ -178,6 +178,7 @@
 						graphDraw(graph, 8 / utils.getScale(12),
 							(renderer.type === PIXI.RENDERER_TYPE.WEBGL) ? WebGLCb : (canvasCb()), 3 * Math.PI / 2);
 						if (renderer.type === PIXI.RENDERER_TYPE.WEBGL) meshCreate(meshVertices, meshIndices);
+						graph = null;
 						prevZoom = zoom;
 					}
 					firstDraw = false;
