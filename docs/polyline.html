@@ -186,7 +186,6 @@
 						, 7 * Math.PI / 4);
 
 						if (renderer.type === PIXI.RENDERER_TYPE.WEBGL) meshCreate(meshVertices, meshIndices);
-						graph = null;
 
 						points.x = origin.x;
 						points.y = origin.y;
@@ -195,6 +194,7 @@
 						graph.vertices.forEach(function(point) {
 							points.drawCircle(point[0], point[1], w / 32);
 						});
+						graph = null;
 					}
 					firstDraw = false;
 					prevZoom = zoom;
