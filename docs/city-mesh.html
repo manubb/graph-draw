@@ -95,7 +95,7 @@
 				var pixiContainer = new PIXI.Container();
 				pixiContainer.alpha = 0.8;
 
-				var forceCanvas = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+				var doubleBuffering = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 				return L.pixiOverlay(function(utils) {
 					var zoom = utils.getMap().getZoom();
 					var container = utils.getContainer();
@@ -185,7 +185,7 @@
 					prevZoom = zoom;
 					renderer.render(container);
 				}, pixiContainer, {
-					forceCanvas: forceCanvas
+					doubleBuffering: doubleBuffering
 				});
 			})();
 			pixiLayer.addTo(map);
