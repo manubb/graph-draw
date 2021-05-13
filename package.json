@@ -2,7 +2,7 @@
   "name": "graph-draw",
   "description": "tessellation of planar graphs with convex polygons",
   "author": "Manuel Baclet <mbaclet@gmail.com>",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "src/graph-draw.js",
   "scripts": {
     "build:docs": "cp ./node_modules/leaflet-hash/leaflet-hash.js ./docs/js/leaflet-hash.js && cp ./node_modules/leaflet/dist/leaflet.css ./docs/css/leaflet.css && cp ./node_modules/leaflet/dist/leaflet.js ./docs/js/leaflet.js && cp ./node_modules/leaflet-pixi-overlay/L.PixiOverlay.min.js ./docs/js/L.PixiOverlay.min.js && cp ./node_modules/pixi.js/dist/pixi.min.js ./docs/js/pixi.min.js && cp ./dist/graph-draw-bundle.min.js ./docs/js/graph-draw-bundle.min.js",
