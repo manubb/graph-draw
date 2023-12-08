@@ -26,28 +26,26 @@ npm install graph-draw
 ```
 In Node:
 ```js
-var graphDraw = require('graph-draw');
+const graphDraw = require('graph-draw');
 ```
 
 In browsers, include one file from the dist directory. (Files with name that contains "bundle" include libtess.)
 
 ## Usage
 ```js
-var vertices = [[0, 0], [100, 0], [100, 100], [0, 100]];
+const vertices = [[0, 0], [100, 0], [100, 100], [0, 100]];
 // coordinates of the vertices
 
-var edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
+const edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
 // each edge is specified with the indices of the linked vertices
 // each edge must appear exactly once in the list
 // ([0, 1] and [1, 0] are the same edge)
 
-var graph = {vertices: vertices, edges: edges};
-var strokeWidth = 10;
-var polygons = [];
+const graph = {vertices: vertices, edges: edges};
+const strokeWidth = 10;
+const polygons = [];
 
-function polygonCallBack(convexPolygon) {
-	polygons.push(convexPolygon);
-}
+const polygonCallBack = (convexPolygon) => polygons.push(convexPolygon);
 
 graphDraw(graph, strokeWidth, polygonCallBack);
 ```
@@ -67,18 +65,18 @@ Those convex polygons can have between 3 and 8 edges.
 When the angle between two consecutive edges is close to 2&pi;, long miter situations occur. For example:
 
 ```js
-var vertices = [
+const vertices = [
   [0, -200],
   [100 , -100],
   [30, -200]
 ];
 
-var edges = [
+const edges = [
   [0, 1],
   [1, 2]
 ];
-var graph = {vertices: vertices, edges: edges};
-var strokeWidth = 20;
+const graph = {vertices: vertices, edges: edges};
+const strokeWidth = 20;
 graphDraw(graph, strokeWidth, polygonCallBack);
 ```
 produces:
