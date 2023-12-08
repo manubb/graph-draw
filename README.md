@@ -75,7 +75,7 @@ const edges = [
   [0, 1],
   [1, 2]
 ];
-const graph = {vertices: vertices, edges: edges};
+const graph = {vertices, edges};
 const strokeWidth = 20;
 graphDraw(graph, strokeWidth, polygonCallBack);
 ```
