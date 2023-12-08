@@ -94,6 +94,8 @@ will produce:
 
 ## Sponsors
 
-Thanks to [Stadia Maps](https://stadiamaps.com/) ![stadia] for providing the [Stamen Toner Lite map tiles](https://docs.stadiamaps.com/map-styles/stamen-toner/#lite-variant) in our project demos.
+Thanks to [Stadia Maps](https://stadiamaps.com/) for providing the [Stamen Toner Lite map tiles](https://docs.stadiamaps.com/map-styles/stamen-toner/#lite-variant) in our project demos.
 
-<a href="https://stadiamaps.com/" target="_blank"><img src="/docs/img/stadia-logo.svg"></a>
+<div style="text-align: center;">
+  <a href="https://stadiamaps.com/" target="_blank"><img style="max-width: 15%;" src="/docs/img/stadia-logo.svg"></a>
+</div>
