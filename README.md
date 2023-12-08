@@ -96,6 +96,4 @@ will produce:
 
 Thanks to [Stadia Maps](https://stadiamaps.com/) for providing the [Stamen Toner Lite map tiles](https://docs.stadiamaps.com/map-styles/stamen-toner/#lite-variant) in our project demos.
 
-<div style="align: center;max-width: 15%;">
-  <a href="https://stadiamaps.com/" target="_blank"><img src="/docs/img/stadia-logo.svg"></a>
-</div>
+<a align="center" href="https://stadiamaps.com/" target="_blank"><img width="128" src="/docs/img/stadia-logo.svg"></a>
