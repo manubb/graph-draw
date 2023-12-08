@@ -62,7 +62,7 @@
 	document.querySelector('#pixi').appendChild(renderer.view);
 	const drawing = new PIXI.Graphics();
 
-	graphDraw({vertices: vertices, edges: edges}, 10, polygon => {
+	graphDraw({vertices, edges}, 10, polygon => {
 		drawing.beginFill(getRandomInt(0, 256 * 256 * 256), 0.6);
 		polygon.forEach((point, index) => {
 			if (index === 0) drawing.moveTo(point[0], point[1]);

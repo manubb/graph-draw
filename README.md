@@ -41,11 +41,11 @@ const edges = [[0, 1], [1, 2], [2, 3], [3, 0], [1, 3]];
 // each edge must appear exactly once in the list
 // ([0, 1] and [1, 0] are the same edge)
 
-const graph = {vertices: vertices, edges: edges};
+const graph = {vertices, edges};
 const strokeWidth = 10;
 const polygons = [];
 
-const polygonCallBack = (convexPolygon) => polygons.push(convexPolygon);
+const polygonCallBack = convexPolygon => polygons.push(convexPolygon);
 
 graphDraw(graph, strokeWidth, polygonCallBack);
 ```
